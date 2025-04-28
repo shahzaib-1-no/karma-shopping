@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ form.media }}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}{% endblock %}| Karma Shop</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'home/img/fav.png' %}"
+    />
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'dashboard/js/plugin/webfont/webfont.min.js' %}"></script>
+
+    <!-- CSS Files -->
+    <link
+      rel="stylesheet"
+      href="{% static 'dashboard/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'dashboard/css/plugins.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'dashboard/css/kaiadmin.min.css' %}"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="#" class="logo">
+              <img
+                src="{% static  'home/img/logo.png' %}"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="45"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              {% url "vendor_dashboard" as dashboard %}
+                <li class="nav-item {% if request.path == 'dashboard' %}active{% endif %}">
+                  <a
+                      
+                      href="{% url "vendor_dashboard" %}"
+                      class="collapsed"
+                      aria-expanded="false"
+                  >
+                      <i class="fa fa-home"></i>
+                      <p>Dashboard</p>
+                  </a>
+                </li>
+                <li class="nav-item {% if request.path == 'home' %}active{% endif %} ">
+                  <a
+                      
+                      href="{% url "home" %}"
+                      class="collapsed"
+                      aria-expanded="false"
+                  >
+                      <i class="fa fa-home"></i>
+                      <p>Home</p>
+                  </a>
+                </li>
+                {% block sidebar %}{% endblock %}
+
+            </ul>
+          </div>
+       </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="{% static 'dashboard/img/kaiadmin/logo_light.svg' %}"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+            <div class="container-fluid">
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      {% if request.user.profile.image %}
+                      <img
+                        src="{{ request.user.profile.image.url }}"
+                        alt="Profile Picture"
+                        class="avatar-img rounded-circle"
+                      />
+                    {% else %}
+                      <img
+                        src="{% static 'dashboard/img/profile.jpg' %}"
+                        alt="Default Avatar"
+                        class="avatar-img rounded-circle"
+                      />
+                    {% endif %}
+                    </div>
+                    <span class="profile-username">
+                      <span class="op-7">Hi,</span>
+                      {% with name=request.user.first_name|default:request.user.username|default:"N/A" %}
+                          <span class="fw-bold">{{ name }}</span>
+                      {% endwith %}
+            
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            {% if request.user.profile.image %}
+                              <img
+                                src="{{request.user.profile.image.url}}"
+                                alt="image profile"
+                                class="avatar-img rounded"
+                              />
+                            {% else %}
+                              <img
+                                src="{% static 'dashboard/img/profile.jpg' %}"
+                                alt="image profile"
+                                class="avatar-img rounded"
+                              />
+                            {% endif %}
+                          </div>
+                          <div class="u-text">
+                            {% with name=request.user.first_name|default:request.user.username|default:"N/A" %}
+                                
+                                <h4>{{name}}</h4>
+                            {% endwith %}
+                            <p class="text-muted">{{request.user.email|default:"N/A"}}</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Change Password</a>
+                        {% block navbarprofile %}{% endblock %}
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url "logout" %}">Logout</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            
+            </div>
+          </nav>
+          <!-- End Navbar -->
+         
+        </div>
+        <div class="container">
+          <div class="page-inner">
+            {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div>{{ message }}</div>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+    	
+			
+    <!--   Core JS Files   -->
+    <script src="{% static 'dashboard/js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'dashboard/js/core/popper.min.js' %}"></script>
+    <script src="{% static 'dashboard/js/core/bootstrap.min.js' %}"></script>
+    {% comment %} <script src="/static/ckeditor/ckeditor-init.js"></script>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script> {% endcomment %}
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'dashboard/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="{% static 'dashboard/js/kaiadmin.min.js' %}"></script>
+<!-- Datatables -->
+<script src="{% static 'dashboard/js/plugin/datatables/datatables.min.js' %}"></script>
+    <script>
+      $(document).ready(function () {
+        $("#basic-datatables").DataTable({});
+
+      });
+    </script>
+  </body>
+</html>
