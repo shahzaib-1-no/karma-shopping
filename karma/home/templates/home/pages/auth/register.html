@@ -1,5 +1,6 @@
 {% extends "home/base.html" %}
 {% load static %}
+{% block title %}Register |{% endblock %}
 {% block content %}
 
 
@@ -26,13 +27,17 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Register to create an account</h3>
-						<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							</div>
+						<form class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+							{% csrf_token %}
+							{% for field in form %}
+								<div class="col-md-12 form-group">
+									{{ field.label_tag }}<br>
+									{{ field }}
+									{% if field.errors %}
+										<div class="text-danger">{{ field.errors.0 }}</div>
+									{% endif %}
+								</div>
+							{% endfor %}
 							<div class="col-md-12 form-group">
                                 <button type="submit" value="submit" class="primary-btn">Register</button>
 								

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+
+
+
 class Header(models.Model):
     image = models.ImageField("Header Image", upload_to="landing_page/header/", null=False, blank=False)
     title = models.CharField("Header Title", max_length=100, null=False, blank=False)
