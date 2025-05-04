@@ -1,0 +1,57 @@
+{% extends "dashboard/admin_dashboard.html" %}
+{% load static %}
+{% block title %}Product {% endblock %}
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    {% comment %} Update Product Start  {% endcomment %}
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Update Product
+                </h4>
+                <form class="row m-2" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.name == 'description' %}
+                            <div class="col-md-10">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                        {% elif field.name == 'image' %}
+                            <div class="col-md-5">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                                {% if form.instance.image %}
+                                    <div class="col-md-5">
+                                        <img src="{{ form.instance.image.url }}" class="img-fluid rounded" style="width: 100px;" alt="Current Image" />
+                                    </div>
+                                {% endif %}
+
+                        {% else %}
+                            <div class="col-md-5">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>    
+                        {% endif %}
+                    {% endfor %}
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-dark btn-sm">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+    {% comment %} Update Product End  {% endcomment %}
+</div>    
+{% endblock %}  

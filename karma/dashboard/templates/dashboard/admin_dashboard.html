@@ -6,23 +6,52 @@
     <span class="sidebar-mini-icon">
         <i class="fa fa-ellipsis-h"></i>
     </span>
-    <h4 class="text-section">Landing Page</h4>
+    <h4 class="text-section">Product Management</h4>
   </li>
   <li class="nav-item">
     <a data-bs-toggle="collapse" href="#sidebarLayouts">
       <i class="fas fa-th-list"></i>
-      <p>Landing Page</p>
+      <p>Products</p>
       <span class="caret"></span>
     </a>
     <div class="collapse" id="sidebarLayouts">
       <ul class="nav nav-collapse">
         <li>
-          <a href="#">
-            <span class="sub-item">NavBar</span>
+          <a href="{% url 'category' %}">
+            <span class="sub-item">Categories</span>
+          </a>
+          <a href="{% url 'product' %}">
+            <span class="sub-item">Products</span>
           </a>
         </li>
       </ul>
     </div>
+    <li class="nav-section">
+      <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+      </span>
+      <h4 class="text-section">Order Management</h4>
+    </li>
+    <li class="nav-item">
+      <a data-bs-toggle="collapse" href="#sidebarLayoutsOrder">
+        <i class="fas fa-th-list"></i>
+        <p>Orders</p>
+        <span class="caret"></span>
+      </a>
+      <div class="collapse" id="sidebarLayoutsOrder">
+        <ul class="nav nav-collapse">
+          <li>
+            <a href="{% url 'orders' %}">
+              <span class="sub-item">Orders</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'order_refund' %}">
+              <span class="sub-item">Refund Orders</span>
+            </a>
+          </li>
+        </ul>
+      </div>
   </li>
 {% endblock %}
 {% block navbarprofile %}
