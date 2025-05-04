@@ -1,0 +1,60 @@
+{% extends "dashboard/admin_dashboard.html" %}
+{% load static %}
+{% block title %}Category {% endblock %}
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    {% comment %} Category Create Form Start  {% endcomment %}
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category</h4>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">{{ field.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-dark btn-sm">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% comment %} Category Create Form End {% endcomment %}
+
+    {% comment %} All Categories Start  {% endcomment %}
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category List</h4>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ category.title }}</td>
+                                <td>
+                                    <a href=" {% url 'category_delete' category.id %} " class="btn btn-sm btn-rounded btn-outline-danger"> <i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </div>
+        </div>
+    </div>
+    {% comment %} All Categories End  {% endcomment %}
+</div>
+{% endblock %}

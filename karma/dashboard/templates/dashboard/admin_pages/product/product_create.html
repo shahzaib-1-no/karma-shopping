@@ -1,0 +1,52 @@
+{% extends "dashboard/admin_dashboard.html" %}
+{% load static %}
+{% block title %}Product {% endblock %}
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    {% comment %} Create Product Start  {% endcomment %}
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Create Product
+                </h4>
+                <form class="row m-2" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.name == 'description' %}
+                            <div class="col-md-10">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                        {% elif field.name == 'image' %}
+                            <div class="col-md-10">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                        {% else %}
+                            <div class="col-md-5">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class=" text-center">
+                        <button type="submit" class="btn btn-dark btn-sm">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% comment %} Create Product End  {% endcomment %}
+</div>    
+{% endblock %}
