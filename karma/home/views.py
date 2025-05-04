@@ -10,17 +10,27 @@ from pprint import pprint
 import stripe
 from django.utils.timezone import make_aware
 from datetime import datetime
+from dashboard.models import (Blog,)
 
-stripe.api_key = "Enter Your Api Key"
+stripe.api_key = "ENTER YOUR STRIPE API KEY"
+
 # Create your views here.
 def home(request):
     return render(request, 'home/index.html')
 
 def blog(request):
-    return render(request, 'home/pages/blog/blog.html')
+    blogs = Blog.objects.all().order_by('-id')
+    context={
+        'blogs':blogs
+        }
+    return render(request, 'home/pages/blog/blog.html',context)
 
-def blog_details(request):
-    return render(request, 'home/pages/blog/blog_details.html')
+def blog_details(request , id):
+    blog = get_object_or_404(Blog, pk=id)
+    context={
+        'blog':blog
+        }
+    return render(request, 'home/pages/blog/blog_details.html',context)
 
 def shop_products(request):
     products = Product.objects.all().order_by('-id')

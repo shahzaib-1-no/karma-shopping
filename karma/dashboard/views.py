@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from home.models import ( Category, Product)
-from .forms import ( CategoryForm, ProductForm)
+from .forms import ( CategoryForm, ProductForm, BlogForm)
 from .services.order_services import (OrderServices,ClientOrderServices)
 import pprint 
+from .models import (Blog,)
 # Create your views here.
 
 #### AUTHENTICATION VIEWS START ####
@@ -202,3 +203,56 @@ def client_order_refund_request(request, id): # Requesting For Refund.
     else:
         messages.error(request, f"{result}")
     return redirect('client_orders')
+
+#### CLIENT ORDER VIEWS END ####
+
+#### ADMIN BLOG VIEWS START ####
+
+@login_required
+@user_passes_test(is_admin)
+def blog(request): # Display All Blogs
+    blogs = Blog.objects.all().order_by('-id')
+    return render(request, 'dashboard/admin_pages/blog/blog.html', {'blogs':blogs})
+
+@login_required
+@user_passes_test(is_admin)
+def blog_create(request): # Create Blog
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Blog created successfully')
+            return redirect('admin_blog')
+    else:
+        form = BlogForm()
+    context={
+        'form':form
+    }
+    return render(request, 'dashboard/admin_pages/blog/blog_create.html', context)
+
+@login_required
+@user_passes_test(is_admin)
+def blog_update(request, id): # Update Blog
+    blog = Blog.objects.get(pk=id)
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Blog updated successfully')
+            return redirect('admin_blog')
+    else:
+        form = BlogForm(instance=blog)
+    context={
+        'form':form
+    }
+    return render(request, 'dashboard/admin_pages/blog/blog_update.html', context)
+
+@login_required
+@user_passes_test(is_admin)
+def blog_delete(request, id): # Delete Blog
+    blog = Blog.objects.get(pk=id)
+    blog.delete()
+    messages.success(request, 'Blog Deleted Successfully')
+    return redirect('admin_blog')
+
+#### ADMIN BLOG VIEWS END ####

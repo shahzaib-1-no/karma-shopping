@@ -31,4 +31,12 @@ urlpatterns = [
     path('client/orders/', views.client_orders, name='client_orders'),
     path('client/order/<int:id>/details/', views.client_order_details, name='client_order_details'),
     path('client/order/<int:id>/refund/', views.client_order_refund_request, name='client_order_refund_request'),
+    ### Client Order Pages End ###
+    
+    ### Admin Blog Pages ###
+    path('admin/blog/', views.blog, name='admin_blog'),
+    path('admin/blog/create/', views.blog_create, name='blog_create'),
+    path('admin/blog/<int:id>/update/', views.blog_update, name='blog_update'),
+    path('admin/blog/<int:id>/delete/', views.blog_delete, name='blog_delete'),
+    ### Admin Blog Pages End ###
 ]

@@ -26,6 +26,7 @@
         </li>
       </ul>
     </div>
+  </li>
     <li class="nav-section">
       <span class="sidebar-mini-icon">
           <i class="fa fa-ellipsis-h"></i>
@@ -52,7 +53,29 @@
           </li>
         </ul>
       </div>
-  </li>
+    </li>
+    <li class="nav-section">
+      <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+      </span>
+      <h4 class="text-section">Blog Management</h4>
+    </li>
+    <li class="nav-item">
+      <a data-bs-toggle="collapse" href="#sidebarLayoutsBlog">
+        <i class="fas fa-th-list"></i>
+        <p>Blog</p>
+        <span class="caret"></span>
+      </a>
+      <div class="collapse" id="sidebarLayoutsBlog">
+        <ul class="nav nav-collapse">
+          <li>
+            <a href="{% url 'blog' %}">
+              <span class="sub-item">Blog</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
 {% endblock %}
 {% block navbarprofile %}
 {% comment %} <a class="dropdown-item" href="{% url "passwordRest" %}">Change Password</a> {% endcomment %}

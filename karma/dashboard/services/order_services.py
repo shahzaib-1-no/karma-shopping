@@ -5,8 +5,7 @@ from django.db.models import Prefetch
 from dashboard.models import RefundRequest
 import stripe
 from django.db import transaction
-stripe.api_key = "Enter Your Api Key"
-
+stripe.api_key = "ENTER YOUR STRIPE API KEY"
 
 
 class OrderServices:
